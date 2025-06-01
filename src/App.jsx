@@ -5,6 +5,7 @@ import HeaderComponent from './components/HeaderComponent'; // Asegúrate de la 
 import ListEmployeeComponent from './components/ListEmployeeComponent'; // Asegúrate de la ruta correcta
 import FooterComponent from './components/FooterComponent'; // Asegúrate de la ruta correcta
 import EmployeeComponent from './components/EmployeeComponent';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   return (

@@ -1,6 +1,7 @@
 import React,{useEffect,useState} from 'react';
 import { listEmployee } from '../services/employeeService';
 import { useNavigate } from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 
@@ -21,13 +22,11 @@ function ListEmployeeComponent() {
    },[])
 
    function addNewEmployee(){
-
-    alert(" Hello my name is vladimir ceballos ");
     navigator('/add-employee');
    }
 
   return (
-    <div className='container'>
+    <div className='container-fluid' >
       <h2 className='text-center'> Lista de Empleados </h2>
       <button className='btn btn-primary mb-2' onClick={addNewEmployee}>Agregar Empleado</button>
 

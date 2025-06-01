@@ -7,4 +7,33 @@
     text-align: center;
     color: white;
   }
+
+  /* src/Hello.css */
+.hello-message {
+  /* Ocupa todo el ancho disponible para que text-align: center funcione bien */
+  width: 100%; 
+    
+  /* Centra el texto horizontalmente dentro del h1 */
+  text-align: center; 
+  
+  /* Tamaño de fuente y color */
+  font-size: 2.5em;
+  color: #333;
+  
+  /* Asegura que el texto se ajuste si es muy largo */
+  word-wrap: break-word;
+  white-space: normal;
+  
+  /* Si tenías algún padding o margin-top en el .hello-message antes, es posible que quieras ajustarlo o quitarlo */
+  /* Por ejemplo, si tenías un padding-top alto aquí, lo haría bajar */
+  padding: 0; /* Aseguramos que no tenga padding propio que lo empuje */
+  margin: 0;  /* Aseguramos que no tenga margin propio que lo empuje */
+}
+
+.App {
+  width: 100%;
+  min-height: 100vh;
+  /* Usaremos clases de Bootstrap en el JSX para el layout flexbox */
+}
+  
   
