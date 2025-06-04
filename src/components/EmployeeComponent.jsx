@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { createEmployee } from '../services/employeeService';
-import { useNavigate  } from 'react-router-dom';
+import { useNavigate, useParams  } from 'react-router-dom';
 
 function EmployeeComponent() {
+  const {id}  = useParams();
   // Use a single state object for employee details
   const [employee, setEmployee] = useState({
     firstName: '',
@@ -73,12 +74,19 @@ function EmployeeComponent() {
     setErrors(errorCopy);
    return valid;
   }
+  function pageTitle(){
+    if(id){
+      return  <h2 className='text-center'>Modificar Empleado</h2>
+    }else{
+      return <h2 className='text-center'>Agregar Empleado</h2>
+    }
+  }
   return (
     <div className='container-fluid'>
       <br/> <br/>
       <div className='row'>
         <div className='card col-md-30 offset-md-3 offset-md-3'> {/* Added Bootstrap column classes for centering */}
-          <h2 className='text-center'>Agregar Empleado</h2>
+         {pageTitle()}
           <div className='card-body'>
             <form>
               <div className='form-group mb-2'>

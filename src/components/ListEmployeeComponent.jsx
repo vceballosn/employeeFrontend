@@ -25,6 +25,11 @@ function ListEmployeeComponent() {
     navigator('/add-employee');
    }
 
+   function updateEmployee(id){
+   
+    navigator(`/edit-employee/${id}`);
+   }
+
   return (
     <div className='container-fluid' >
       <h2 className='text-center'> Lista de Empleados </h2>
@@ -34,9 +39,10 @@ function ListEmployeeComponent() {
         <thead>
             <tr>
                <th> Id </th>
-                <th> first Name </th>
-                <th> last Name </th>
-                <th> Email </th>
+                <th> Primer Nombre </th>
+                <th> Segundo Nombre </th>
+                <th> Correo </th>
+                <th> Accion </th>
             </tr>
         </thead>
         <tbody>
@@ -47,6 +53,9 @@ function ListEmployeeComponent() {
                         <td>{employee.firstName}</td>
                         <td>{employee.lastName}</td>
                         <td>{employee.email}</td>
+                        <td>
+                          <button className='btn btn-info'onClick={()=> updateEmployee(employee.id)}> Modificar  </button>
+                        </td>
 
                     </tr>
                 )
