@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { createEmployee } from '../services/employeeService';
+import React, { useEffect, useState } from 'react';
+import { createEmployee, getEmployee, updateEmployee } from '../services/employeeService';
 import { useNavigate, useParams  } from 'react-router-dom';
 
 function EmployeeComponent() {
@@ -11,6 +11,37 @@ function EmployeeComponent() {
     email: ''
   });
   const navigator = useNavigate();
+  useEffect(() => {
+    // This is the "effect" function that runs after every render
+    // where 'id' changes (or on the initial mount).
+    if (id) {
+      // Check if 'id' has a truthy value (i.e., it's not null, undefined, 0, or an empty string).
+      // This prevents trying to fetch data if 'id' isn't available yet.
+  
+      getEmployee(id)
+        // Call the 'getEmployee' function, passing the 'id'.
+        // We're assuming 'getEmployee' is a function that makes an asynchronous API call
+        // and returns a Promise (e.g., using Axios or Fetch).
+  
+        .then((response) => {
+          // If the API call is successful, this '.then()' block executes.
+          // 'response' contains the data returned from the server.
+          console.log(response.data)
+            setEmployee(response.data);
+          // Assuming 'employee' is an object (perhaps from useContext or useState)
+          // that has a 'setEmployee' method. This line updates the state or context
+          // with the 'data' property of the API response.
+        })
+        .catch((error) => {
+          // If the API call fails for any reason (e.g., network error, server error),
+          // this '.catch()' block executes.
+          console.error(error);
+          // Logs the error to the console, which is helpful for debugging.
+        });
+    }
+  }, [id]); // This is the dependency array.
+
+
   const [errors,setErrors]  = useState({
     firstName:'',
     lastName:'',
@@ -28,7 +59,7 @@ function EmployeeComponent() {
     }));
   }
 
-  function saveEmployee(e) {
+  function saveOrUpdateEmployee(e) {
     e.preventDefault(); // Corrected typo: preventDefault()
     console.log(employee);
     // In a real application, you would typically send this 'employee' object
@@ -37,13 +68,23 @@ function EmployeeComponent() {
     //alert('Employee saved! Check the console for details.');
 
     if (validateForm()) {
-        createEmployee(employee).then((Response)=>{
-        console.log(Response.data);
-        navigator('/employees')
-       }).catch(error=>{
-         console.error(error);
-   
-      })
+       if (id){
+          updateEmployee(id,employee).then((response)=>{
+            console.log(response.data);
+            navigator('/employees')
+          }).catch.error(error =>{
+            console.error(error);
+          })
+       }else{
+          createEmployee(employee).then((Response)=>{
+            console.log(Response.data);
+            navigator('/employees')
+          }).catch(error=>{
+            console.error(error);
+      
+          })
+       }
+       
 
     }
 
@@ -128,7 +169,7 @@ function EmployeeComponent() {
                  {errors.email && <div className='invalid-feedback'>{errors.email} </div>}
               </div>
 
-              <button className='btn btn-success' onClick={saveEmployee}>Guardar</button>
+              <button className='btn btn-success' onClick={saveOrUpdateEmployee}>Guardar</button>
             </form>
           </div>
         </div>
