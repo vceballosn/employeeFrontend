@@ -1,5 +1,5 @@
 import React,{useEffect,useState} from 'react';
-import { listEmployee } from '../services/employeeService';
+import { deleteEmployee, listEmployee } from '../services/employeeService';
 import { useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -11,15 +11,19 @@ function ListEmployeeComponent() {
   const navigator = useNavigate();
 
    useEffect(() => {
-     listEmployee().then((Response =>{
-        setEmployee(Response.data);
-
-     })).catch(error=>{
-        console.error(error);
-
-     })
+     getAllEmployee();
 
    },[])
+
+   function getAllEmployee(){
+        listEmployee().then((Response =>{
+          setEmployee(Response.data);
+
+      })).catch(error=>{
+          console.error(error);
+
+      })
+   }
 
    function addNewEmployee(){
     navigator('/add-employee');
@@ -28,6 +32,14 @@ function ListEmployeeComponent() {
    function updateEmployee(id){
    
     navigator(`/edit-employee/${id}`);
+   }
+   function removeEmployee (id){
+    console.log(id);
+    deleteEmployee(id).then((Response)=>{
+    getAllEmployee();
+    }).catch(error => {
+      console.error(error);
+    }) 
    }
 
   return (
@@ -55,7 +67,11 @@ function ListEmployeeComponent() {
                         <td>{employee.email}</td>
                         <td>
                           <button className='btn btn-info'onClick={()=> updateEmployee(employee.id)}> Modificar  </button>
+                          <button className='btn btn-danger'onClick={()=> removeEmployee(employee.id)} style ={{ marginLeft: '10px' }}>  Eliminar </button>
                         </td>
+                       
+                            
+                        
 
                     </tr>
                 )
