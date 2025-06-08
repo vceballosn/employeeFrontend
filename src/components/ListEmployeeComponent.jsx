@@ -51,8 +51,8 @@ function ListEmployeeComponent() {
         <thead>
             <tr>
                <th> Id </th>
-                <th> Primer Nombre </th>
-                <th> Segundo Nombre </th>
+                <th>  Nombre </th>
+                <th>  Apellido </th>
                 <th> Correo </th>
                 <th> Accion </th>
             </tr>
