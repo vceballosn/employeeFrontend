@@ -69,6 +69,7 @@ function EmployeeComponent() {
 
     if (validateForm()) {
        if (id){
+         console.log(employee);
           updateEmployee(id,employee).then((response)=>{
             console.log(response.data);
             navigator('/employees')
