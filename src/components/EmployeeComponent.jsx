@@ -68,6 +68,7 @@ function EmployeeComponent() {
     //alert('Employee saved! Check the console for details.');
 
     if (validateForm()) {
+       console.log(id)
        if (id){
          console.log(employee);
           updateEmployee(id,employee).then((response)=>{
